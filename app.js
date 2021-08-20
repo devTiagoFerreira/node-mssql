@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const cors = require('cors');
-const sql = require('mssql');
 
 //Routes
 const planetas = require('./routes/planets');
@@ -21,8 +20,17 @@ app.use(
 
 app.use('/planetas', planetas);
 
+app.use('/fotos/planetas/:foto', (req, res, next) => {
+    return res.sendFile(__dirname + '/img/planetas/'+req.params.foto);
+});
+
+app.use('/', (req, res, next) => {
+    return res.sendFile(__dirname + '/public/index.html');
+});
+
+
 app.use((req, res) => {
-    res.status(404).send({
+    return res.status(404).send({
         error: 'Rota não encontrada.',
     });
 });
