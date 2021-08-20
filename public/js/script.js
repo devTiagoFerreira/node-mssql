@@ -86,6 +86,7 @@ function getPlanets() {
             res.json()
                 .then((data) => {
                     if (res.status == 200) {
+                        document.querySelector('#box').innerHTML = '';
                         listPlanets(data.response);
                     }
                 })
@@ -94,7 +95,6 @@ function getPlanets() {
         .catch((error) => {});
 }
 function listPlanets(data = {}) {
-    document.querySelector('#box').innerHTML = '';
     let plan = data.planets;
     for (let i = 0; i < plan.length; i++) {
         let box = document.querySelector('#box');
@@ -151,8 +151,8 @@ function deletePlanets(planetId) {
                         document.getElementById('alert').innerHTML = data.response.message;
                     } else {
                         document.getElementById('alert').innerHTML = data.response.message;
-                        getPlanets();
                     }
+                    getPlanets();
                 })
                 .catch((error) => {});
         })
