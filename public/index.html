@@ -4,9 +4,34 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="style.css" />
         <title>Planetas</title>
     </head>
     <body>
-        <h1>Planetas</h1>
+        <header>
+            <h3>S I S T E M A &nbspS O L A R</h3>
+        </header>
+        <section>
+            <form id="add">
+                <label for="file" id="file_button">Foto</label>
+                <input type="file" name="file" id="file" onchange="showFileName()" />
+                <input class="nome" id="nome" name="nome" type="text" placeholder="Nome" />
+                <input class="distancia_sol" id="distancia_sol" name="distancia_sol" type="number" placeholder="Distâncio do Sol" />
+                <input class="translacao" id="translacao" name="translacao" type="text" placeholder="Tempo de translação" />
+                <input class="rotacao" id="rotacao" name="rotacao" type="text" placeholder="Tempo de rotação" />
+                <input class="diametro_equatorial" id="diametro_equatorial" name="diametro_equatorial" type="number" placeholder="Diametro equatorial" />
+                <input class="temperatura_superficie" id="temperatura_superficie" name="temperatura_superficie" type="text" placeholder="Temperatura na superficie" />
+                <input class="densidade_media" id="densidade_media" name="densidade_media" type="number" placeholder="Densidade média" />
+                <input class="num_satelites_naturais" id="num_satelites_naturais" name="num_satelites_naturais" type="number" placeholder="Satélites naturais" />
+                <input type="hidden" id="id" />
+                <input type="button" id="cadastrar" value="Cadastrar" onclick="addPlanets()" />
+                <input type="button" id="update" value="Atualizar" onclick="updatePlanets()" />
+
+                <div id="alert"></div>
+            </form>
+            <img class="sun" src="./img/sol.webp" />
+            <div id="box"></div>
+        </section>
+        <script src="./js/script.js"></script>
     </body>
 </html>

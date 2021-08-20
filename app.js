@@ -24,10 +24,7 @@ app.use('/fotos/planetas/:foto', (req, res, next) => {
     return res.sendFile(__dirname + '/img/planetas/'+req.params.foto);
 });
 
-app.use('/', (req, res, next) => {
-    return res.sendFile(__dirname + '/public/index.html');
-});
-
+app.use(express.static('public'));
 
 app.use((req, res) => {
     return res.status(404).send({

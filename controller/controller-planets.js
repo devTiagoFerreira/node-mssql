@@ -68,13 +68,12 @@ exports.getIdPlanets = (req, res, next) => {
 
 exports.postPlanets = (req, res, next) => {
     const { nome, distancia_sol, translacao, rotacao, diametro_equatorial, temperatura_superficie, densidade_media, num_satelites_naturais } = req.body;
-
     try {
         var { filename } = req.file;
     } catch (error) {
         return res.status(400).send({
             response: {
-                message: 'Adicione uma foto do planeta',
+                message: 'Adicione uma foto do planeta.',
             },
         });
     }
@@ -170,7 +169,6 @@ exports.patchPlanets = (req, res, next) => {
                     }
                     if (recordset[0].foto != filename) {
                         url = path.join('./img/planetas', recordset[0].foto);
-                        console.log(url);
                         utils.fileRemove(url);
                     }
 
@@ -202,7 +200,7 @@ exports.deletePlanets = (req, res, next) => {
             const results = await pool.query(`select foto from Planetas where id = ${planet}`);
             const { recordset } = results;
             if (!recordset.length != 0) {
-                return res.status(200).send({
+                return res.status(400).send({
                     response: {
                         message: 'Nenhum planeta encontrado.',
                     },

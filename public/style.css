@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url('img/background_universe.webp');
+    background-size: 100%;
+    background-position: center;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: top;
+}
+
+header h3 {
+    text-align: center;
+    font-family: 'Inconsolata', monospace;
+    font-weight: 200;
+    font-size: 6vw;
+    color: rgb(255, 255, 255);
+    margin-top: 20px;
+}
+
+section {
+    margin-top: 20px;
+    text-align: center;
+}
+
+section .sun {
+    width: auto;
+}
+
+section #add {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+section #add label {
+    display: flex;
+    margin: 20px 50vw;
+    background-color: rgba(0, 0, 0, 0.528);
+    font-family: 'Inconsolata', monospace;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 35px;
+    padding: 0 100px;
+    height: 35px;
+    border-radius: 5px;
+    color: rgb(134, 255, 74);
+    transition: 0.3s;
+}
+
+section #add label:hover {
+    cursor: pointer;
+    background-color: rgb(0, 0, 0);
+}
+
+section #add input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+section #add input[type='number'] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+section #add input[type='file'] {
+    display: none;
+}
+
+section #add input {
+    margin: 3px 5px;
+    padding-left: 10px;
+    min-width: 300px;
+    height: 35px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.528);
+    color: rgb(134, 255, 74);
+}
+
+section #add input::placeholder {
+    color: rgb(184, 184, 184);
+}
+
+section #add input::focus {
+    color: rgb(184, 184, 184);
+}
+
+section #add input[type='button'] {
+    margin: 20px 50vw;
+    background-color: rgb(134, 255, 74);
+    font-family: 'Inconsolata', monospace;
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+    min-width: 200px;
+    transition: 0.3s;
+}
+
+section #add input[type='button']:hover {
+    background-color: rgb(110, 211, 59);
+    cursor: pointer;
+}
+
+section #add #update {
+    background-color: rgb(255, 243, 74);
+}
+
+section #add #update:hover {
+    background-color: rgb(211, 181, 59);
+    cursor: pointer;
+}
+
+section #add #alert {
+    font-family: 'Inconsolata', monospace;
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+}
+
+section .planets {
+    display: flex;
+    width: 70%;
+    margin: auto;
+    padding-top: 40px;
+}
+
+section .planets .planet {
+    width: 70%;
+}
+
+section .planets .planet img {
+    width: 100%;
+}
+
+section .planets .data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    font-family: 'Inconsolata', monospace;
+    font-weight: bold;
+    font-size: 16px;
+    color: rgb(134, 255, 74); 
+}
+
+section #box .edit{
+    background-color: rgb(255, 249, 74);
+    font-family: 'Inconsolata', monospace;
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+    min-width: 100px;
+    height: 30px;
+    transition: 0.3s;
+    border-radius: 5px;
+    border: none;
+    margin: 0 10px;
+}
+
+section #box .edit:hover{
+    background-color: rgb(192, 188, 50);
+    cursor: pointer;
+}
+
+section #box .delete{
+    background-color: rgb(255, 74, 74);
+    font-family: 'Inconsolata', monospace;
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+    min-width: 100px;
+    height: 30px;
+    transition: 0.3s;
+    border-radius: 5px;
+    border: none;
+    margin: 0 10px;
+}
+
+section #box .delete:hover{
+    background-color: rgb(192, 50, 50);
+    cursor: pointer;
+}
