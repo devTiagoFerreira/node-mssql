@@ -20,19 +20,24 @@ function addPlanets() {
     }).then((res) => {
         res.json().then((data) => {
             const alert = document.getElementById('alert');
+            const dataForm = document.querySelectorAll('input');
             if (res.status != 201) {
                 alert.innerHTML = data.response.message;
                 alert.style.color = '#ff4848';
             } else {
                 alert.innerHTML = data.response.message;
                 alert.style.color = '#9aff48';
+                for (let i = 0; i < dataForm.length; i++) {
+                    dataForm[i].value = '';
+                }
+                document.getElementById('file_button').innerHTML = 'Foto';
                 getPlanets();
             }
         });
     });
 }
 
-function getUpdatePlanets(planet = {}) {
+function getPlanetsToForm(planet = {}) {
     document.querySelector('#id').value = planet.id;
     document.querySelector('#nome').value = planet.nome;
     document.querySelector('#distancia_sol').value = planet.distancia_sol;
@@ -66,12 +71,17 @@ function updatePlanets() {
     }).then((res) => {
         res.json().then((data) => {
             const alert = document.getElementById('alert');
+            const dataForm = document.querySelectorAll('input');
             if (res.status != 200) {
-                alert.innerHTML = data.error;
+                alert.innerHTML = data.response.message;
                 alert.style.color = '#ff4848';
             } else {
                 alert.innerHTML = data.response.message;
                 alert.style.color = '#9aff48';
+                for (let i = 0; i < dataForm.length; i++) {
+                    dataForm[i].value = '';
+                }
+                document.getElementById('file_button').innerHTML = 'Foto';
                 getPlanets();
             }
         });
@@ -108,7 +118,7 @@ function listPlanets(data = {}) {
         let edit = document.createElement('button');
         edit.classList.add('edit');
         edit.addEventListener('click', () => {
-            getUpdatePlanets(plan[i]);
+            getPlanetsToForm(plan[i]);
         });
         edit.innerHTML = 'Editar';
         let del = document.createElement('button');
@@ -155,5 +165,15 @@ function deletePlanets(planetId) {
         });
     });
 }
+
+const addPlanet = document.getElementById('add-planet');
+const updatePlanet = document.getElementById('update');
+
+addPlanet.addEventListener('click', () => {
+    addPlanets();
+});
+updatePlanet.addEventListener('click', () => {
+    updatePlanets();
+});
 
 window.addEventListener('load', getPlanets());
