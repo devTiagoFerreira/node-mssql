@@ -1,15 +1,15 @@
-onload(getPlanets());
-
 function showFileName() {
     const filename = document.getElementById('file').files;
     document.getElementById('file_button').innerHTML = filename[0].name;
 }
+
 function addPlanets() {
     const form = document.querySelector('#add');
     let data = new FormData();
     for (let i = 1; i < form.length - 1; i++) {
         data.append(form[i].name, form[i].value);
     }
+
     data.append('foto', form[0].files[0]);
 
     const url = 'http://localhost:3000/planetas';
@@ -17,20 +17,19 @@ function addPlanets() {
     fetch(url, {
         method: 'POST',
         body: data,
-    })
-        .then((res) => {
-            res.json()
-                .then((data) => {
-                    if (res.status != 201) {
-                        document.getElementById('alert').innerHTML = data.response.message;
-                    } else {
-                        document.getElementById('alert').innerHTML = data.response.message;
-                        getPlanets();
-                    }
-                })
-                .catch((error) => {});
-        })
-        .catch((error) => {});
+    }).then((res) => {
+        res.json().then((data) => {
+            const alert = document.getElementById('alert');
+            if (res.status != 201) {
+                alert.innerHTML = data.response.message;
+                alert.style.color = '#ff4848';
+            } else {
+                alert.innerHTML = data.response.message;
+                alert.style.color = '#9aff48';
+                getPlanets();
+            }
+        });
+    });
 }
 
 function getUpdatePlanets(planet = {}) {
@@ -47,12 +46,13 @@ function getUpdatePlanets(planet = {}) {
 }
 
 function updatePlanets() {
-    let form = document.querySelector('#add');
+    const form = document.querySelector('#add');
 
     let id = document.querySelector('#id').value;
 
     let data = new FormData();
-    for (let i = 1; i < form.length - 3; i++) {
+
+    for (let i = 1; i < form.length; i++) {
         data.append(form[i].name, form[i].value);
     }
 
@@ -63,37 +63,33 @@ function updatePlanets() {
     fetch(url, {
         method: 'PATCH',
         body: data,
-    })
-        .then((res) => {
-            res.json()
-                .then((data) => {
-                    if (res.status != 201) {
-                        document.getElementById('alert').innerHTML = data.response.message;
-                    } else {
-                        document.getElementById('alert').innerHTML = data.response.message;
-                        getPlanets();
-                    }
-                })
-                .catch((error) => {});
-        })
-        .catch((error) => {});
+    }).then((res) => {
+        res.json().then((data) => {
+            const alert = document.getElementById('alert');
+            if (res.status != 200) {
+                alert.innerHTML = data.error;
+                alert.style.color = '#ff4848';
+            } else {
+                alert.innerHTML = data.response.message;
+                alert.style.color = '#9aff48';
+                getPlanets();
+            }
+        });
+    });
 }
-function getPlanets() {
-    const url = 'http://localhost:3000/planetas';
 
-    fetch(url)
-        .then((res) => {
-            res.json()
-                .then((data) => {
-                    if (res.status == 200) {
-                        document.querySelector('#box').innerHTML = '';
-                        listPlanets(data.response);
-                    }
-                })
-                .catch((error) => {});
-        })
-        .catch((error) => {});
+function getPlanets() {
+    document.querySelector('#box').innerHTML = '';
+    const url = 'http://localhost:3000/planetas';
+    fetch(url).then((res) => {
+        res.json().then((data) => {
+            if (res.status == 200) {
+                listPlanets(data.response);
+            }
+        });
+    });
 }
+
 function listPlanets(data = {}) {
     let plan = data.planets;
     for (let i = 0; i < plan.length; i++) {
@@ -105,6 +101,7 @@ function listPlanets(data = {}) {
         planets.classList.add('planet');
         planets.appendChild(planet);
         let img = document.createElement('img');
+        img.classList.add('planet-rotate');
         img.src = plan[i].url;
         img.alt = plan[i].nome;
         planet.appendChild(img);
@@ -124,37 +121,39 @@ function listPlanets(data = {}) {
         data.classList.add('data');
         planets.appendChild(data);
         data.innerHTML = `
-                    Nome: ${plan[i].nome} <br /><br />
-                    Distância do Sol: ${plan[i].distancia_sol} <br /><br />
-                    Translção: ${plan[i].translacao} <br /><br />
-                    Rotação: ${plan[i].rotacao} <br /><br />
-                    Diametro Equatorial: ${plan[i].diametro_equatorial} <br /><br />
-                    Temperatura: ${plan[i].temperatura_superficie} <br /><br />
-                    Densidade Média: ${plan[i].densidade_media} <br /><br />
-                    Luas: ${plan[i].num_satelites_naturais} <br /><br />             
+                    <strong>Nome:</strong> ${plan[i].nome} <br /><br />
+                    <strong>Distância do Sol:</strong> ${plan[i].distancia_sol} <br /><br />
+                    <strong>Translação:</strong> ${plan[i].translacao} <br /><br />
+                    <strong>Rotação:</strong> ${plan[i].rotacao} <br /><br />
+                    <strong>Diametro Equatorial:</strong> ${plan[i].diametro_equatorial} <br /><br />
+                    <strong>Temperatura:</strong> ${plan[i].temperatura_superficie} <br /><br />
+                    <strong>Densidade Média:</strong> ${plan[i].densidade_media} <br /><br />
+                    <strong>Luas:</strong> ${plan[i].num_satelites_naturais} <br /><br />             
                     `;
         box.appendChild(edit);
         box.appendChild(del);
     }
 }
+
 function deletePlanets(planetId) {
     scrollTo(0, 0);
     const url = `http://localhost:3000/planetas/${planetId}`;
 
     fetch(url, {
         method: 'DELETE',
-    })
-        .then((res) => {
-            res.json()
-                .then((data) => {
-                    if (res.status != 200) {
-                        document.getElementById('alert').innerHTML = data.response.message;
-                    } else {
-                        document.getElementById('alert').innerHTML = data.response.message;
-                    }
-                    getPlanets();
-                })
-                .catch((error) => {});
-        })
-        .catch((error) => {});
+    }).then((res) => {
+        res.json().then((data) => {
+            const alert = document.getElementById('alert');
+            if (res.status != 200) {
+                alert.innerHTML = data.response.message;
+                alert.style.color = '#ff4848';
+            } else {
+                alert.innerHTML = data.response.message;
+                alert.style.color = '#9aff48';
+            }
+            getPlanets();
+        });
+    });
 }
+
+window.addEventListener('load', getPlanets());
