@@ -1,2 +1,1 @@
-# node-mssql
-Estudo direcionado a dependência node.js mssql
+# CRUD Sistema Solar
