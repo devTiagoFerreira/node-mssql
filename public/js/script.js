@@ -88,19 +88,19 @@ function updatePlanets() {
     });
 }
 
-function getPlanets() {
+function getPlanets(proportion) {
     document.querySelector('#box').innerHTML = '';
     const url = 'http://localhost:3000/planetas';
     fetch(url).then((res) => {
         res.json().then((data) => {
             if (res.status == 200) {
-                listPlanets(data.response);
+                listPlanets(data.response, proportion);
             }
         });
     });
 }
 
-function listPlanets(data = {}) {
+function listPlanets(data = {}, proportion) {
     let plan = data.planets;
     for (let i = 0; i < plan.length; i++) {
         let box = document.querySelector('#box');
@@ -114,6 +114,9 @@ function listPlanets(data = {}) {
         img.classList.add('planet-rotate');
         img.src = plan[i].url;
         img.alt = plan[i].nome;
+        if (proportion) {
+           img.style.width = plan[i].diametro_equatorial * 7.002801120448179e-4 + '%'; 
+        }
         planet.appendChild(img);
         let edit = document.createElement('button');
         edit.classList.add('edit');
@@ -168,12 +171,22 @@ function deletePlanets(planetId) {
 
 const addPlanet = document.getElementById('add-planet');
 const updatePlanet = document.getElementById('update');
+const proportionPlanet = document.getElementById('proportion');
+let proportion;
 
 addPlanet.addEventListener('click', () => {
     addPlanets();
 });
 updatePlanet.addEventListener('click', () => {
     updatePlanets();
+});
+proportionPlanet.addEventListener('click', () => {
+    if(proportion) {
+        proportion = false
+    } else {
+        proportion = true
+    }
+    getPlanets(proportion);
 });
 
 window.addEventListener('load', getPlanets());

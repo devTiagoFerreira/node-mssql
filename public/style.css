@@ -45,7 +45,7 @@ section .sun {
 .sun {
     width: 100%;
     animation-name: sun-rotate;
-    animation-duration: 100s;
+    animation-duration: 200s;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
 }
@@ -160,23 +160,16 @@ section #alert {
 section .planets {
     display: flex;
     justify-content: center;
+    align-items: center;
     width: 70%;
     margin: 40px auto;
     padding-top: 40px;
 }
 
-section .planets .planet {
-    width: 70%;
-}
-
-section .planets .planet img {
-    width: 100%;
-}
-
 .planet-rotate {
     width: 100%;
     animation-name: planet-rotate;
-    animation-duration: 30s;
+    animation-duration: 100s;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
 }
